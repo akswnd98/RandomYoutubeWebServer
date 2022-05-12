@@ -12,18 +12,26 @@ dotenv.config();
 
 const app = express();
 
+app.set('port', process.env.SERVER_PORT);
+
 app.use(useragent.express());
 
-const httpsOptions = {
-  key: fs.readFileSync(path.resolve(__dirname, '../ssl/ry.key')),
-  cert: fs.readFileSync(path.resolve(__dirname, '../ssl/ry.crt')),
-};
+app.use('/api', createProxyMiddleware('', {
+  target: `http://${process.env.API_SERVER_HOST}:${process.env.API_SERVER_PORT}`,
+  changeOrigin: true,
+}));
+
+const devClients = [
+  'desktop-web-client',
+  'mobile-web-client',
+];
+
+const devClientsPublicPath = [
+  'desktop',
+  'mobile',
+];
 
 if (process.env.NODE_ENV === 'development') {
-  const devClients = [
-    'desktop-web-client',
-    'mobile-web-client',
-  ];
   devClients.forEach((v) => {
     const webpackConfig = {
       mode: 'development',
@@ -43,13 +51,6 @@ if (process.env.NODE_ENV === 'development') {
   });
 }
 
-app.set('port', process.env.SERVER_PORT);
-
-app.use('/api', createProxyMiddleware('', {
-  target: `http://${process.env.API_SERVER_HOST}:${process.env.API_SERVER_PORT}`,
-  changeOrigin: true,
-}));
-
 if (process.env.NODE_ENV === 'production') {
   app.get('/', async (req, res) => {
     if (req.useragent?.isDesktop) {
@@ -67,6 +68,11 @@ if (process.env.NODE_ENV === 'production') {
     }
   });
 }
+
+const httpsOptions = {
+  key: fs.readFileSync(path.resolve(__dirname, '../ssl/ry.key')),
+  cert: fs.readFileSync(path.resolve(__dirname, '../ssl/ry.crt')),
+};
 
 https.createServer(httpsOptions, app).listen(process.env.SERVER_PORT, () => {
   console.log(`server started on port ${app.get('port')}`);

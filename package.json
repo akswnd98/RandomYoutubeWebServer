@@ -22,7 +22,8 @@
     "express-useragent": "^1.0.15",
     "http-proxy-middleware": "^2.0.6",
     "typescript": "^4.6.4",
-    "webpack-dev-middleware": "^5.3.1"
+    "webpack-dev-middleware": "^5.3.1",
+    "workbox-precaching": "^6.5.3"
   },
   "devDependencies": {
     "@babel/core": "^7.17.10",
@@ -35,13 +36,14 @@
     "babel-loader": "^8.2.5",
     "babel-plugin-transform-metadata": "^4.0.2",
     "babel-plugin-transform-typescript-metadata": "^0.3.2",
+    "copy-webpack-plugin": "^10.2.4",
     "css-loader": "^6.7.1",
-    "html-webpack-plugin": "^5.5.0",
     "sass": "^1.51.0",
     "sass-loader": "^12.6.0",
     "style-loader": "^3.3.1",
     "tsconfig-paths": "^4.0.0",
     "webpack": "^5.72.1",
-    "webpack-cli": "^4.9.2"
+    "webpack-cli": "^4.9.2",
+    "workbox-webpack-plugin": "^6.5.3"
   }
 }
