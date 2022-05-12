@@ -1,0 +1,6 @@
+[submodule "mobile-web-client"]
+	path = mobile-web-client
+	url = https://github.com/akswnd98/RandomYoutubeMobileWebClient
+[submodule "desktop-web-client"]
+	path = desktop-web-client
+	url = https://github.com/akswnd98/RandomYoutubeDesktopWebClient
