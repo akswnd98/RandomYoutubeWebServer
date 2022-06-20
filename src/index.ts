@@ -52,19 +52,30 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 if (process.env.NODE_ENV === 'production') {
+  app.use('/desktop/', express.static(path.resolve(__dirname, '../desktop-web-client/dist')));
+  app.use('/mobile/', express.static(path.resolve(__dirname, '../mobile-web-client/dist')));
+
   app.get('/', async (req, res) => {
-    if (req.useragent?.isDesktop) {
-      res.sendFile(path.resolve(__dirname, '../desktop-web-client/dist/index.html'));
-    } else if (req.useragent?.isMobile) {
-      res.sendFile(path.resolve(__dirname, '../mobile-web-client/dist/index.html'));
+    try {
+      if (req.useragent?.isDesktop) {
+        res.sendFile(path.resolve(__dirname, '../desktop-web-client/dist/index.html'));
+      } else if (req.useragent?.isMobile) {
+        res.sendFile(path.resolve(__dirname, '../mobile-web-client/dist/index.html'));
+      }
+    } catch (e) {
+      console.log(e);
     }
   });
 } else if (process.env.NODE_ENV === 'development') {
   app.get('/', async (req, res) => {
-    if (req.useragent?.isDesktop) {
-      res.redirect('/desktop/index.html');
-    } else if (req.useragent?.isMobile) {
-      res.redirect('/mobile/index.html');
+    try {
+      if (req.useragent?.isDesktop) {
+        res.redirect('/desktop/index.html');
+      } else if (req.useragent?.isMobile) {
+        res.redirect('/mobile/index.html');
+      }
+    } catch (e) {
+      console.log(e);
     }
   });
 }

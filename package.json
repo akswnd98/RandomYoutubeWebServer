@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --watch \"src/**\" --ext \"ts\" --exec \"ts-node -r tsconfig-paths/register --files ./src/index.ts\""
+    "dev": "nodemon --watch \"src/**\" --ext \"ts\" --exec \"ts-node -r tsconfig-paths/register --files ./src/index.ts\"",
+    "start": "nodemon --exec \"ts-node -r tsconfig-paths/register --files ./src/index.ts\""
   },
   "repository": {
     "type": "git",
