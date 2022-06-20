@@ -2,3 +2,8 @@ node_modules/
 .env
 ssl/ry.crt
 ssl/ry.key
+ssl/rootca.key
+ssl/rootca.csr
+ssl/rootca.crt
+ssl/rootca.srl
+ssl/ry.csr
