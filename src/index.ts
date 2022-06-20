@@ -80,11 +80,17 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-const httpsOptions = {
-  key: fs.readFileSync(path.resolve(__dirname, '../ssl/ry.key')),
-  cert: fs.readFileSync(path.resolve(__dirname, '../ssl/ry.crt')),
-};
+if (process.env.NODE_ENV === 'development') {
+  const httpsOptions = {
+    key: fs.readFileSync(path.resolve(__dirname, '../ssl/ry.key')),
+    cert: fs.readFileSync(path.resolve(__dirname, '../ssl/ry.crt')),
+  };
 
-https.createServer(httpsOptions, app).listen(process.env.SERVER_PORT, () => {
-  console.log(`server started on port ${app.get('port')}`);
-});
+  https.createServer(httpsOptions, app).listen(process.env.SERVER_PORT, () => {
+    console.log(`server started on port ${app.get('port')}`);
+  });
+} else if (process.env.NODE_ENV === 'production') {
+  app.listen(process.env.SERVER_PORT, () => {
+    console.log(`server started on port ${app.get('port')}`);
+  });
+}
